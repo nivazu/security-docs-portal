@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ניהול מסמכים - צוות 3</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>ניהול מסמכים</h1>
+            <a href="index.html" class="back-link">חזרה לפורטל</a>
+        </div>
+        
+        <form id="doc-form">
+            <input type="hidden" id="doc-id">
+            <input type="text" id="doc-title" placeholder="שם המסמך" required>
+            <input type="file" id="doc-file">
+            <p style="font-size: 0.9rem; color: #94a3b8; margin-top: -0.5rem;">
+                הערה: באתר סטטי, יש להעלות את הקובץ ידנית לתיקיית documents
+            </p>
+            <button type="submit">שמור מסמך</button>
+        </form>
+        
+        <div id="admin-doc-list">
+            <!-- Document list will be populated here -->
+        </div>
+    </div>
+    
+    <script src="admin.js"></script>
+</body>
+</html>
