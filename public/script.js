@@ -1,6 +1,5 @@
 // Storage configuration
 const STORAGE_KEY = 'secureDocs';
-const PASSWORD = 'Nehalim';
 
 // Helper functions for localStorage
 function getDocumentsFromStorage() {
@@ -29,38 +28,6 @@ const documentList = document.getElementById('document-list');
 const modal = document.getElementById('document-modal');
 const documentViewer = document.getElementById('document-viewer');
 const closeBtn = document.querySelector('.close-btn');
-const passwordModal = document.getElementById('password-modal');
-const passwordForm = document.getElementById('password-form');
-const passwordInput = document.getElementById('password-input');
-const passwordError = document.getElementById('password-error');
-
-// Check if user is authenticated
-function checkAuth() {
-    const isAuthenticated = sessionStorage.getItem('authenticated');
-    if (!isAuthenticated) {
-        passwordModal.classList.add('active');
-    } else {
-        passwordModal.classList.remove('active');
-        renderDocuments();
-    }
-}
-
-// Password form submission
-passwordForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const enteredPassword = passwordInput.value;
-    
-    if (enteredPassword === PASSWORD) {
-        sessionStorage.setItem('authenticated', 'true');
-        passwordModal.classList.remove('active');
-        passwordInput.value = '';
-        passwordError.textContent = '';
-        renderDocuments();
-    } else {
-        passwordError.textContent = 'סיסמה שגויה. נסה שוב.';
-        passwordInput.value = '';
-    }
-});
 
 // Function to get icon based on file type
 function getDocumentIcon(type) {
@@ -102,18 +69,20 @@ function openDocument(doc) {
         documentViewer.innerHTML = `
             <h2>${doc.title}</h2>
             <iframe src="${doc.filePath}" width="100%" height="600px" style="border: none;"></iframe>
-            <p style="margin-top: 1rem;">אם המסמך אינו נטען, <a href="${doc.filePath}" target="_blank">לחץ כאן להורדה</a></p>
         `;
-    } else if (doc.type === 'excel' || doc.type === 'word') {
+    } else if (doc.type === 'excel') {
+        // Use Microsoft Office Online viewer for Excel files
+        const encodedUrl = encodeURIComponent(window.location.origin + '/' + doc.filePath);
         documentViewer.innerHTML = `
             <h2>${doc.title}</h2>
-            <p>סוג קובץ: ${doc.type.toUpperCase()}</p>
-            <p>נתיב: ${doc.filePath}</p>
-            <div style="margin-top: 2rem;">
-                <a href="${doc.filePath}" download class="download-btn" style="padding: 0.8rem 1.5rem; background-color: #3b82f6; color: white; text-decoration: none; border-radius: 8px; display: inline-block;">
-                    הורד מסמך
-                </a>
-            </div>
+            <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=${encodedUrl}" width="100%" height="600px" style="border: none;"></iframe>
+        `;
+    } else if (doc.type === 'word') {
+        // Use Microsoft Office Online viewer for Word files
+        const encodedUrl = encodeURIComponent(window.location.origin + '/' + doc.filePath);
+        documentViewer.innerHTML = `
+            <h2>${doc.title}</h2>
+            <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=${encodedUrl}" width="100%" height="600px" style="border: none;"></iframe>
         `;
     } else {
         documentViewer.innerHTML = `
@@ -138,5 +107,5 @@ modal.addEventListener('click', (e) => {
     }
 });
 
-// Initialize the app
-checkAuth();
+// Initialize the app - directly render documents without authentication
+renderDocuments();
