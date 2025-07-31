@@ -1,0 +1,9 @@
+This is a sample document for testing purposes.
+
+Security Policy V2.1
+====================
+
+This is a placeholder file for the Security Documents Portal.
+In a real implementation, this would be a PDF file containing actual security policies and procedures.
+
+For now, this text file serves as a placeholder to demonstrate the application's functionality.
