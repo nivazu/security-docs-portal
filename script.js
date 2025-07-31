@@ -1,6 +1,40 @@
 // Storage configuration
 const STORAGE_KEY = 'secureDocs';
 
+// Password validation
+const CORRECT_PASSWORD = 'Nehalim';
+
+// DOM elements for password modal
+const passwordModal = document.getElementById('password-modal');
+const passwordForm = document.getElementById('password-form');
+const passwordInput = document.getElementById('password-input');
+const passwordError = document.getElementById('password-error');
+
+// Function to handle password submission
+function handlePasswordSubmit(e) {
+    e.preventDefault();
+    const enteredPassword = passwordInput.value;
+    
+    if (enteredPassword === CORRECT_PASSWORD) {
+        // Correct password - hide modal and show main content
+        passwordModal.classList.remove('active');
+        renderDocuments();
+    } else {
+        // Wrong password - show error message
+        passwordError.textContent = 'סיסמה שגויה. נסה שוב.';
+        passwordInput.value = '';
+        passwordInput.focus();
+    }
+}
+
+// Add event listener for password form submission
+passwordForm.addEventListener('submit', handlePasswordSubmit);
+
+// Focus on password input when page loads
+window.addEventListener('DOMContentLoaded', () => {
+    passwordInput.focus();
+});
+
 // Helper functions for localStorage
 function getDocumentsFromStorage() {
     const docs = localStorage.getItem(STORAGE_KEY);
@@ -107,5 +141,4 @@ modal.addEventListener('click', (e) => {
     }
 });
 
-// Initialize the app - directly render documents without authentication
-renderDocuments();
+// Note: renderDocuments() is now called only after successful password validation
