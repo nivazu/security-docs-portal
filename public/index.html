@@ -1,20 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web application for viewing official security documents."
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <title>Security Docs Portal</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-  </body>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מרכז בקרה מבצעית - צוות 3</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="site-header">
+        <img src="https://placehold.co/150x80/0d1b2a/ffffff?text=Logo" alt="לוגו צוות 3" class="company-logo">
+        <h1>מרכז בקרה מבצעית - צוות 3</h1>
+    </header>
+    
+    <main class="container">
+        <div style="text-align: left; margin-bottom: 1rem;">
+            <a href="admin.html" class="back-link">ניהול מסמכים</a>
+        </div>
+        <div id="document-list" class="document-grid">
+            <!-- Documents will be populated here by JavaScript -->
+        </div>
+    </main>
+    
+    <!-- Modal for document viewer -->
+    <div id="document-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <div id="document-viewer">
+                <!-- Document content will be displayed here -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Password modal -->
+    <div id="password-modal" class="modal active">
+        <div class="modal-content password-modal-content">
+            <h2>הזן סיסמה</h2>
+            <form id="password-form">
+                <input type="password" id="password-input" placeholder="סיסמה" required>
+                <button type="submit">כניסה</button>
+            </form>
+            <p id="password-error" class="error-message"></p>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
 </html>
